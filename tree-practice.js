@@ -5,39 +5,98 @@ const { BinarySearchTree, TreeNode } = require('./binary-search-tree.js');
 // Practice problems on binary trees
 
 function findMinBST (rootNode) {
-  // Your code here 
+  if(!rootNode.left) return rootNode.val;
+
+  return findMinBST(rootNode.left)
 }
 
 function findMaxBST (rootNode) {
-  // Your code here 
+  if(!rootNode.right) return rootNode.val;
+
+  return findMaxBST(rootNode.right)
 }
 
 function findMinBT (rootNode) {
-  // Your code here 
+  let min = rootNode.val;
+
+  function depthFirstTraversal(root) {
+    let stack = [root];
+    while(stack.length){
+     let node = stack.pop();
+     if(node.val < min){
+      min = node.val;
+     }
+     if(node.left){
+       stack.push(node.left)
+     }
+     if(node.right){
+       stack.push(node.right)
+     }
+    }
+  }
+
+  depthFirstTraversal(rootNode);
+  return min;
 }
 
 function findMaxBT (rootNode) {
-  // Your code here 
+  let max = rootNode.val;
+
+  function depthFirstTraversal(root) {
+    let stack = [root];
+    while(stack.length){
+     let node = stack.pop();
+     if(node.val > max){
+      max = node.val;
+     }
+     if(node.left){
+       stack.push(node.left)
+     }
+     if(node.right){
+       stack.push(node.right)
+     }
+    }
+  }
+
+  depthFirstTraversal(rootNode);
+  return max;
 }
 
 function getHeight (rootNode) {
-  // Your code here 
+  let max = 0;
+
+  function depthFirstTraversal(root) {
+    let stack = [root];
+    while(stack.length){
+      let node = stack.pop();
+      console.log(node.val);
+      if(node.left){
+        stack.push(node.left)
+      }
+      if(node.right){
+        stack.push(node.right)
+      }
+      max++;
+    }
+  }
+
+  getHeight(rootNode)
 }
 
 function balancedTree (rootNode) {
-  // Your code here 
+  // Your code here
 }
 
 function countNodes (rootNode) {
-  // Your code here 
+  // Your code here
 }
 
 function getParentNode (rootNode, target) {
-  // Your code here 
+  // Your code here
 }
 
 function inOrderPredecessor (rootNode, target) {
-  // Your code here 
+  // Your code here
 }
 
 function deleteNodeBST(rootNode, target) {
@@ -55,7 +114,7 @@ function deleteNodeBST(rootNode, target) {
 
   // Case 2: Two children:
   //  Set the value to its in-order predecessor, then delete the predecessor
-  //  Replace target node with the left most child on its right side, 
+  //  Replace target node with the left most child on its right side,
   //  or the right most child on its left side.
   //  Then delete the child that it was replaced with.
 
