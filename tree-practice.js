@@ -63,28 +63,70 @@ function findMaxBT (rootNode) {
 }
 
 function getHeight (rootNode) {
-  let max = 0;
-
-  function depthFirstTraversal(root) {
-    let stack = [root];
-    while(stack.length){
-      let node = stack.pop();
-      console.log(node.val);
-      if(node.left){
-        stack.push(node.left)
-      }
-      if(node.right){
-        stack.push(node.right)
-      }
-      max++;
-    }
+  // let max = 0;
+  if(!rootNode){
+    return -1;
   }
 
-  getHeight(rootNode)
+  let left = getHeight(rootNode.left);
+  let right = getHeight(rootNode.right);
+
+  return Math.max(left, right) + 1;
+
+  // function depthFirstTraversal(root) {
+  //   let stack = [root];
+  //   while(stack.length){
+  //     let node = stack.pop();
+  //     console.log(node.val);
+  //     if(node.left){
+  //       stack.push(node.left)
+  //     }
+  //     if(node.right){
+  //       stack.push(node.right)
+  //     }
+  //     max++;
+  //   }
+  // }
+
+  // getHeight(rootNode)
 }
 
 function balancedTree (rootNode) {
-  // Your code here
+  // let left = getHeight(rootNode.left);
+  // let right = getHeight(rootNode.right);
+  // console.log("LEFT: ", left)
+  // console.log("RIGHT: ", right)
+  // if(Math.abs(left-right) <= 1){
+  //   return true;
+  // } else {
+  //   return false;
+  // }
+  let leftCount = 0;
+  let lCurr = rootNode;
+  while(lCurr){
+    lCurr = lCurr.left
+    leftCount++;
+  }
+
+  console.log("LEFT", leftCount)
+
+  let rightCount = 0;
+  let rCurr = rootNode;
+  while(rCurr){
+    rCurr = rCurr.right
+    rightCount++;
+  }
+
+  console.log("RIGHT", rightCount)
+
+
+
+  // we want to traverse absolute left, and absolute right
+  // compare these lengths
+  // if they are the same or one apart, then move to children
+  // if not, immediately return false from whole function
+  // repeat this process for the rest
+  // if the end is reached without a false return, the tree is balanced
 }
 
 function countNodes (rootNode) {
