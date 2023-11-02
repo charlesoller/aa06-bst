@@ -301,18 +301,18 @@ describe('Binary Tree Practice', () => {
 
     it('should compare the heights of every node in the tree', function() {
       expect(balancedTree(bstRootBig)).to.be.false;
-      // expect(balancedTree(bstRootBig.left)).to.be.true;
-      // expect(balancedTree(bstRootBig.right)).to.be.false;
-      // expect(balancedTree(bstRootBig.right.right)).to.be.false;
-      // expect(balancedTree(bstRootBig.right.right.right)).to.be.false;
-      // expect(balancedTree(bstRootBig.right.right.right.right)).to.be.true;
+      expect(balancedTree(bstRootBig.left)).to.be.true;
+      expect(balancedTree(bstRootBig.right)).to.be.false;
+      expect(balancedTree(bstRootBig.right.right)).to.be.false;
+      expect(balancedTree(bstRootBig.right.right.right)).to.be.false;
+      expect(balancedTree(bstRootBig.right.right.right.right)).to.be.true;
 
-      // expect(balancedTree(btRootBig)).to.be.false;
-      // expect(balancedTree(btRootBig.left)).to.be.true;
-      // expect(balancedTree(btRootBig.right)).to.be.false;
-      // expect(balancedTree(btRootBig.right.right)).to.be.false;
-      // expect(balancedTree(btRootBig.right.right.right)).to.be.false;
-      // expect(balancedTree(btRootBig.right.right.right.right)).to.be.true;
+      expect(balancedTree(btRootBig)).to.be.false;
+      expect(balancedTree(btRootBig.left)).to.be.true;
+      expect(balancedTree(btRootBig.right)).to.be.false;
+      expect(balancedTree(btRootBig.right.right)).to.be.false;
+      expect(balancedTree(btRootBig.right.right.right)).to.be.false;
+      expect(balancedTree(btRootBig.right.right.right.right)).to.be.true;
 
     });
 

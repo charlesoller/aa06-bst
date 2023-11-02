@@ -63,7 +63,6 @@ function findMaxBT (rootNode) {
 }
 
 function getHeight (rootNode) {
-  // let max = 0;
   if(!rootNode){
     return -1;
   }
@@ -72,54 +71,29 @@ function getHeight (rootNode) {
   let right = getHeight(rootNode.right);
 
   return Math.max(left, right) + 1;
-
-  // function depthFirstTraversal(root) {
-  //   let stack = [root];
-  //   while(stack.length){
-  //     let node = stack.pop();
-  //     console.log(node.val);
-  //     if(node.left){
-  //       stack.push(node.left)
-  //     }
-  //     if(node.right){
-  //       stack.push(node.right)
-  //     }
-  //     max++;
-  //   }
-  // }
-
-  // getHeight(rootNode)
 }
 
 function balancedTree (rootNode) {
-  // let left = getHeight(rootNode.left);
-  // let right = getHeight(rootNode.right);
-  // console.log("LEFT: ", left)
-  // console.log("RIGHT: ", right)
-  // if(Math.abs(left-right) <= 1){
-  //   return true;
-  // } else {
-  //   return false;
-  // }
-  let leftCount = 0;
-  let lCurr = rootNode;
-  while(lCurr){
-    lCurr = lCurr.left
-    leftCount++;
+  let balanced = true;
+
+  //finds height for each node in tree
+  function findLocalHeight(rootNode){
+    if(!rootNode) return;
+
+    let left = getHeight(rootNode.left)
+    let right = getHeight(rootNode.right)
+
+    // console.log("LEFT:", left, "RIGHT:", right)
+    if(Math.abs(left - right) > 1){
+      balanced = false;
+    } else {
+      findLocalHeight(rootNode.left)
+      findLocalHeight(rootNode.right)
+    }
   }
 
-  console.log("LEFT", leftCount)
-
-  let rightCount = 0;
-  let rCurr = rootNode;
-  while(rCurr){
-    rCurr = rCurr.right
-    rightCount++;
-  }
-
-  console.log("RIGHT", rightCount)
-
-
+  findLocalHeight(rootNode);
+  return balanced;
 
   // we want to traverse absolute left, and absolute right
   // compare these lengths
