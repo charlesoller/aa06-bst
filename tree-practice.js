@@ -105,21 +105,117 @@ function balancedTree (rootNode) {
 
 function countNodes (rootNode) {
   // Your code here
+  let count = 0;
+
+  function traverse(node){
+    if(!node) return;
+    traverse(node.left)
+    traverse(node.right)
+    count++;
+  }
+
+  traverse(rootNode)
+  return count;
 }
 
 function getParentNode (rootNode, target) {
-  // Your code here
+  if(target === rootNode.val) return null;
+  let parent;
+  function traverse(node){
+    if(!node) return;
+    traverse(node.left)
+    traverse(node.right)
+
+    if(node.left){
+      if(node.left.val === target){
+        parent = node;
+      }
+    }
+
+    if(node.right){
+      if(node.right.val === target){
+        parent = node;
+      }
+    }
+  }
+
+  traverse(rootNode)
+  return parent;
 }
 
 function inOrderPredecessor (rootNode, target) {
-  // Your code here
+  let nodes = [];
+  function traverse(node){
+    if(!node) return
+    traverse(node.right)
+    nodes.push(node.val)
+    traverse(node.left)
+  }
+
+  traverse(rootNode)
+  let ans = nodes[nodes.indexOf(target) + 1]
+  return ans ? ans : null;
 }
 
 function deleteNodeBST(rootNode, target) {
   // Do a traversal to find the node. Keep track of the parent
+  // let parent;
+
+  // function traverse(node){
+  //   if(!node) return;
+  //   traverse(node.left)
+
+  //   if(node.left && node.left.val === target){
+  //     parent = node;
+  //     //no children
+  //     if(!node.left.left && !node.left.right){
+  //       parent.left = null;
+  //     }
+  //     //only left child
+  //     else if(node.left.left && !node.left.right){
+  //       parent.left = node.left.left;
+  //     }
+  //     //only right child
+  //     else if(node.left.right && !node.left.left){
+  //       parent.left = node.left.right;
+  //     }
+  //     //two children
+  //     else {
+  //       let min = findMinBST(parent.right);
+  //       parent.right = min;
+  //       console.log("TEST", min)
+  //     }
+  //   }
+
+  //   if(node.right && node.right.val === target){
+  //     parent = node;
+  //     //no children
+  //     if(!node.right.left && !node.right.right){
+  //       parent.right = null;
+  //     }
+  //     //only left child
+  //     else if(node.right.left && !node.right.right){
+  //       parent.right = node.right.left;
+  //     }
+  //     //only right child
+  //     else if(node.right.right && !node.right.left){
+  //       parent.right = node.right.right;
+  //     }
+  //     //two children
+  //     else {
+  //       let min = findMinBST(parent.right);
+  //       console.log("TEST", min)
+  //     }
+  //   }
+
+  //   traverse(node.right)
+  // }
+
+  // traverse(rootNode)
+  // if(!parent) return undefined;
+  // return rootNode;
 
   // Undefined if the target cannot be found
-
   // Set target based on parent
 
   // Case 0: Zero children and no parent:
@@ -136,7 +232,30 @@ function deleteNodeBST(rootNode, target) {
 
   // Case 3: One child:
   //   Make the parent point to the child
+  
+  let found;
+  function wrapper(rootNode){
+    if (!rootNode.left && !rootNode.right) return null;
+    if (target < rootNode.val) {
+      rootNode.left = wrapper(rootNode.left, target);
+    } else if (target > rootNode.val) {
+      rootNode.right = wrapper(rootNode.right, target);
+    } else {
+      found = true;
+      if (!rootNode.left) return rootNode.right;
+      if (!rootNode.right) return rootNode.left;
+      let minRight = findMinBST(rootNode.right);
+      rootNode.val = minRight;
+      rootNode.right = wrapper(rootNode.right, minRight);
+    }
+    return rootNode;
+  }
 
+  let res =  wrapper(rootNode)
+  if(!found){
+    return undefined;
+  }
+  return res;
 }
 
 module.exports = {
